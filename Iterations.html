@@ -1,14 +1,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+canvas {
+	background-color: green;
+	margin: 1em auto;
+}
+</style>
 </head>
 <body>
+<canvas id="canv"></canvas>
 <script>
+const canvas = document.getElementById('canv');
+canvas.width = window.innerWidth*0.9;
+canvas.height = 400;
+
+
+c = canvas.getContext('2d');
+
+
+
 for (let i = 0; i < 10; i++) {
 	console.log(i);
-	alert(i);	
+	
 }
-
+setTimeout(() => {return True}, 10000);
 if (3 < 2) {
   console.log("Саме так!");
 }
