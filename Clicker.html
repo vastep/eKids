@@ -2,24 +2,106 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Animation</title>
+<style>
+html, body {
+height: 100%;
+}
+canvas {
+background-color: #eee;
+display: block;
+margin: 1em auto;
+}
+#counter {
+text-align: center;
+}
+</style>
 </head>
 
 <body>
-</body>
+<div id="counter">0</div>
+<canvas id="canvas"></canvas>
+
 <script>
+const canvas = document.getElementById('canvas');
+canvas.width = 500;
+canvas.height = 500;
+canvas.style.border = 'none';
+
+const c = canvas.getContext('2d');
+const borderX = canvas.getBoundingClientRect().x;
+const borderY = canvas.getBoundingClientRect().y;
+
+const counter = document.getElementById('counter');
+let score = 0;
+
+function random(number) {
+  return Math.floor(Math.random() * (number + 1));
+}
+
+let posX = 0;
+let posY = 0;
+let size = 20;
+
+function drawCircle() {
+c.arc(random(480), random(480), size/2, 0, 2*Math.PI);
+c.fill();
+}
+
+function drawRect() {
+  posX = random(480);
+  posY = random(480);
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.fillRect(posX, posY, size, size);
+}
+
+function isCatched() {
+ if (
+	(event.clientX - borderX) >= posX &&
+	(event.clientX - borderX) <= (posX + size) &&
+	(event.clientY - borderY) >= posY &&
+	(event.clientY - borderY) <= (posY + size)
+	) {
+  console.log(`Попав`);
+  score += 1;
+  counter.innerHTML = score;
+  console.log(score);
+ }
+ else {
+  score -= 1;
+  counter.innerHTML = score;
+  console.log(`НЕ попав`);
+ }
+ 
+console.log(`${posX} < ${event.clientX - borderX} < ${posX + size}`)
+console.log(`${posY} < ${event.clientY - borderY} < ${posY + size}`)
+
+drawRect();
+}
+
 var time;
+
 function start() {
 	if (event.keyCode == 83) {
 		time = setTimeout(stop, 5000);
 		console.log('Started');
+		score = 0;
+		counter.innerHTML = score;
+		drawRect();
 	}
 	console.log(event.keyCode);
 }
+
 function stop() {
 	clearTimeout(time);
 	console.log('Stopped');
-	alert('Done!');
+	alert("Кінець! Ваш рахунок:" + score);
 }
+
 document.addEventListener('keydown', start);
+
+canvas.addEventListener('click', isCatched);
 </script>
+
+</body>
 </html>
