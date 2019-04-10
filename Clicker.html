@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+</body>
+<script>
+var time;
+function start() {
+	if (event.keyCode == 83) {
+		time = setTimeout(stop, 5000);
+		console.log('Started');
+	}
+	console.log(event.keyCode);
+}
+function stop() {
+	clearTimeout(time);
+	console.log('Stopped');
+	alert('Done!');
+}
+document.addEventListener('keydown', start);
+</script>
+</html>
