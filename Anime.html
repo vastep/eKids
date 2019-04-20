@@ -1,0 +1,11 @@
+//https://codepen.io/chirag64/pen/Luoyi
+var circle = document.querySelector("circle");
+
+var goleft = 0;
+
+function moveCircle() {
+  goleft += 5;
+  circle.style.transform = "translate(" + goleft + "px)";
+  window.requestAnimationFrame(moveCircle);
+}
+moveCircle();
